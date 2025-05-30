@@ -25,8 +25,8 @@ class PokemonListInteractor: PokemonListInteractorProtocol {
         self.service.getItems(request: .init()) { result in
             self.presenter.presentStopLoading(response: .init())
             switch result {
-            case .success(let items):
-                let itemsToPresent = items.compactMap{PokemonListModels.ShowItems.Response.ItemRepresentation(name: $0.name)}
+            case .success(let result):
+                let itemsToPresent = result.results.compactMap{PokemonListModels.ShowItems.Response.ItemRepresentation(name: $0.name)}
                 self.presenter.presentShowItems(response: .init(items: itemsToPresent))
                 
             case .failure(let failure):

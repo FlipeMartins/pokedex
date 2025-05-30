@@ -15,11 +15,12 @@ class PokemonListViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupScene()
+        self.interactor?.startFlow(request: .init())
     }
     
     private func setupScene(){
         let presenter = PokemonListPresenter(displayer: self)
-        let service = PokemonListService()
+        let service = PokemonListServiceMock() //PokemonListService() (Change for Real Server When Implemented)
         let interactor = PokemonListInteractor(presenter: presenter, service: service)
         self.interactor = interactor
     }
@@ -40,6 +41,7 @@ extension PokemonListViewController: PokemonListDisplayProtocol {
     
     func displayShowItems(viewModel: PokemonListModels.ShowItems.ViewModel) {
         // Do Something
+        print("Items: \(viewModel.items)")
     }
     
     func displayShowDetails(viewModel: PokemonListModels.ShowDetails.ViewModel) {

@@ -12,12 +12,18 @@ enum PokemonListServiceModel {
         struct Request {
             
         }
-        struct Response {
-            let name: String
+        struct Response: Decodable {
+            
+            struct Item: Decodable {
+                let name: String
+                let url: String
+            }
+            
+            let results: [Item]
         }
     }
 }
 
 protocol PokemonListServiceProtocol {
-    func getItems(request: PokemonListServiceModel.GetItems.Request, completion: @escaping (Result<[PokemonListServiceModel.GetItems.Response], Error>) -> Void)
+    func getItems(request: PokemonListServiceModel.GetItems.Request, completion: @escaping (Result<PokemonListServiceModel.GetItems.Response, Error>) -> Void)
 }
