@@ -8,5 +8,6 @@
 import Foundation
 
 protocol PokemonListInteractorProtocol {
-    
+    func startFlow(request: PokemonListModels.StartFlow.Request)
+    func userSelectedItem(request: PokemonListModels.UserSelectedItem.Request)
 }

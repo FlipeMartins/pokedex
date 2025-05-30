@@ -20,11 +20,31 @@ class PokemonListViewController: UIViewController {
     private func setupScene(){
         let presenter = PokemonListPresenter(displayer: self)
         let service = PokemonListService()
-        let interactor = PokemonListInteractor(presenter: presenter, serviceManager: service)
+        let interactor = PokemonListInteractor(presenter: presenter, service: service)
         self.interactor = interactor
     }
 }
 
 extension PokemonListViewController: PokemonListDisplayProtocol {
+    func displayStartLoading(viewModel: PokemonListModels.StartLoading.ViewModel) {
+        // Do Something
+    }
+    
+    func displayStopLoading(viewModel: PokemonListModels.StopLoading.ViewModel) {
+        // Do Something
+    }
+    
+    func displayEmptyState(viewModel: PokemonListModels.EmptyState.ViewModel) {
+        // Do Something
+    }
+    
+    func displayShowItems(viewModel: PokemonListModels.ShowItems.ViewModel) {
+        // Do Something
+    }
+    
+    func displayShowDetails(viewModel: PokemonListModels.ShowDetails.ViewModel) {
+        // Do Something
+    }
+    
     
 }
