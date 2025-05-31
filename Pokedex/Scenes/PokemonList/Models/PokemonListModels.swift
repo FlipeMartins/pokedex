@@ -50,6 +50,7 @@ enum PokemonListModels {
         struct ViewModel {
             struct ItemRepresentation {
                 let name: String
+                let image: PKMDSImage
             }
             
             let items: [ItemRepresentation]

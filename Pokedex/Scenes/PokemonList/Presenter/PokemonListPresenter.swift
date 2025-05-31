@@ -30,14 +30,19 @@ class PokemonListPresenter: PokemonListPresenterProtocol {
     }
     
     func presentShowItems(response: PokemonListModels.ShowItems.Response) {
-        let items = response.items.compactMap{PokemonListModels.ShowItems.ViewModel.ItemRepresentation(name: $0.name)}
+        let items = response.items.enumerated().compactMap{
+            PokemonListModels.ShowItems.ViewModel.ItemRepresentation(
+                name: $0.element.name,
+                image: .remote(
+                    remote: .init(
+                        url: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\($0.offset + 1).png")
+                )
+            )
+        }
         self.displayer?.displayShowItems(viewModel: .init(items: items))
     }
     
     func presentShowDetails(response: PokemonListModels.ShowDetails.Response) {
         self.displayer?.displayShowDetails(viewModel: .init(itemId: response.itemId))
     }
-    
-    
-    
 }
