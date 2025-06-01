@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PokemonListViewController: UIViewController {
+class PokemonListViewController: BaseViewController {
     
     struct ItemRepresentation {
         let name: String
@@ -73,8 +73,8 @@ class PokemonListViewController: UIViewController {
     
     private func setupScene(){
         let presenter = PokemonListPresenter(displayer: self)
-        let service = PokemonListServiceMock(configuration: .init(getItemsConfiguration: .failure(PokemonListServiceMock.MockError.someError))) //PokemonListService() (Change for Real Server When Implemented)
-        //let service = PokemonListServiceMock() //PokemonListService() (Change for Real Server When Implemented)
+        //let service = PokemonListServiceMock(configuration: .init(getItemsConfiguration: .failure(PokemonListServiceMock.MockError.someError))) //PokemonListService() (Change for Real Server When Implemented)
+        let service = PokemonListServiceMock() //PokemonListService() (Change for Real Server When Implemented)
         let interactor = PokemonListInteractor(presenter: presenter, service: service)
         self.interactor = interactor
     }
@@ -134,10 +134,12 @@ extension PokemonListViewController: UICollectionViewDelegateFlowLayout {
 extension PokemonListViewController: PokemonListDisplayProtocol {
     func displayStartLoading(viewModel: PokemonListModels.StartLoading.ViewModel) {
         // Do Something
+        self.startLoading()
     }
     
     func displayStopLoading(viewModel: PokemonListModels.StopLoading.ViewModel) {
         // Do Something
+        self.stopLoading()
     }
     
     func displayEmptyState(viewModel: PokemonListModels.EmptyState.ViewModel) {
