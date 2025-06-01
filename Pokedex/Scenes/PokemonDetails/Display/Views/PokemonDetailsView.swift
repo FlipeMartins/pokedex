@@ -34,7 +34,6 @@ class PokemonDetailsView: UIView {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
-        stackView.backgroundColor = UIColor.lightGray // TODO: Remove
         
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = .init(top: 20.0,
@@ -49,7 +48,7 @@ class PokemonDetailsView: UIView {
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        
+        label.font = PKMDSFonts.title1
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -65,6 +64,7 @@ class PokemonDetailsView: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
+        stackView.alignment = .center
         stackView.distribution = .fill
         stackView.spacing = 20.0
         
@@ -100,15 +100,33 @@ class PokemonDetailsView: UIView {
         self.imageView.setPKMDSImage(viewRepresentation.image)
         self.nameLabel.text = viewRepresentation.name
         
+        let spacerLeft = UIView()
+        let spacerRight = UIView()
+
+        spacerLeft.translatesAutoresizingMaskIntoConstraints = false
+        spacerRight.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.typesContentStack.addArrangedSubview(spacerLeft)
+        
         viewRepresentation.types.forEach {
             
             let label = UILabel()
+            label.setContentHuggingPriority(.required, for: .horizontal)
+            label.backgroundColor = UIColor.darkGray
+            label.textColor = .white
+            label.font = PKMDSFonts.title3
             label.translatesAutoresizingMaskIntoConstraints = false
             label.text = $0
             
             self.typesContentStack.addArrangedSubview(label)
         }
         
+        self.typesContentStack.addArrangedSubview(spacerRight)
+        
+        NSLayoutConstraint.activate([
+            spacerLeft.widthAnchor.constraint(equalTo: spacerRight.widthAnchor)
+        ])
+
         viewRepresentation.stats.forEach {
             
             let stackview = UIStackView()
@@ -118,12 +136,16 @@ class PokemonDetailsView: UIView {
             
             let titleLabel = UILabel()
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
+            titleLabel.font = PKMDSFonts.caption1
+            titleLabel.textColor = PKMDSColors.neutralSecondaryText
             titleLabel.text = $0.title
             titleLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
             
             titleLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
             
             let valueLabel = UILabel()
+            valueLabel.font = PKMDSFonts.caption1
+            valueLabel.textColor = PKMDSColors.neutralSecondaryText
             valueLabel.translatesAutoresizingMaskIntoConstraints = false
             valueLabel.text = $0.value
             
@@ -201,8 +223,14 @@ extension PokemonDetailsView: PKMDSViewConfiguration {
     }
     
     func configureViews() {
-        self.contentStack.layer.cornerRadius = 20
+        self.contentStack.layer.cornerRadius = 40.0
         self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         self.contentStack.clipsToBounds = true
+        
+        //
+        
+        self.nameLabel.textColor = PKMDSColors.neutralPrimaryText
+        self.contentStack.backgroundColor = PKMDSColors.neutralLightGray
+        self.baseView.backgroundColor =  PKMDSColors.neutralBackground
     }
 }

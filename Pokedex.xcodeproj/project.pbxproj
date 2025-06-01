@@ -42,6 +42,8 @@
 		A277B8062DEC0E6B00E2F7BA /* PokemonDetailsServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A277B8052DEC0E6B00E2F7BA /* PokemonDetailsServiceMock.swift */; };
 		A277B8092DECB50800E2F7BA /* pokemon-details-get-pokemon-details.json in Resources */ = {isa = PBXBuildFile; fileRef = A277B8082DECB50800E2F7BA /* pokemon-details-get-pokemon-details.json */; };
 		A277B80C2DECC9DE00E2F7BA /* PokemonDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A277B80B2DECC9DE00E2F7BA /* PokemonDetailsView.swift */; };
+		A277B80F2DECF7AA00E2F7BA /* PKMDSColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A277B80E2DECF7AA00E2F7BA /* PKMDSColors.swift */; };
+		A277B8122DECF9EF00E2F7BA /* PKMDSFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A277B8112DECF9EF00E2F7BA /* PKMDSFonts.swift */; };
 		A2C9E6922DE8F8AC0055C541 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C9E6912DE8F8AC0055C541 /* AppDelegate.swift */; };
 		A2C9E6942DE8F8AC0055C541 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C9E6932DE8F8AC0055C541 /* SceneDelegate.swift */; };
 		A2C9E6962DE8F8AC0055C541 /* PokemonListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C9E6952DE8F8AC0055C541 /* PokemonListViewController.swift */; };
@@ -105,6 +107,8 @@
 		A277B8052DEC0E6B00E2F7BA /* PokemonDetailsServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailsServiceMock.swift; sourceTree = "<group>"; };
 		A277B8082DECB50800E2F7BA /* pokemon-details-get-pokemon-details.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "pokemon-details-get-pokemon-details.json"; sourceTree = "<group>"; };
 		A277B80B2DECC9DE00E2F7BA /* PokemonDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailsView.swift; sourceTree = "<group>"; };
+		A277B80E2DECF7AA00E2F7BA /* PKMDSColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKMDSColors.swift; sourceTree = "<group>"; };
+		A277B8112DECF9EF00E2F7BA /* PKMDSFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKMDSFonts.swift; sourceTree = "<group>"; };
 		A2C9E68E2DE8F8AC0055C541 /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2C9E6912DE8F8AC0055C541 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2C9E6932DE8F8AC0055C541 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -262,6 +266,8 @@
 		A26041E62DEA59DB00139D55 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				A277B8102DECF9D500E2F7BA /* Fonts */,
+				A277B80D2DECF77B00E2F7BA /* Colors */,
 				A277B8072DECA92700E2F7BA /* PKMDSEmptyStateView */,
 				A26041ED2DEA687300139D55 /* PKMDSSmallCard */,
 				A26041EA2DEA5EEC00139D55 /* Commons */,
@@ -395,6 +401,22 @@
 				A277B80B2DECC9DE00E2F7BA /* PokemonDetailsView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		A277B80D2DECF77B00E2F7BA /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				A277B80E2DECF7AA00E2F7BA /* PKMDSColors.swift */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		A277B8102DECF9D500E2F7BA /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				A277B8112DECF9EF00E2F7BA /* PKMDSFonts.swift */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		A2C9E6852DE8F8AC0055C541 = {
@@ -606,6 +628,7 @@
 				A277B7F92DEC0A7400E2F7BA /* PokemonDetailsDataProviderProtocol.swift in Sources */,
 				A2C9E6922DE8F8AC0055C541 /* AppDelegate.swift in Sources */,
 				A26041E32DEA51AB00139D55 /* MockHelper.swift in Sources */,
+				A277B8122DECF9EF00E2F7BA /* PKMDSFonts.swift in Sources */,
 				A277B7E52DEC04DE00E2F7BA /* PokemonListLocalDataProvider.swift in Sources */,
 				A26041DC2DE92B3900139D55 /* PokemonListModels.swift in Sources */,
 				A277B8012DEC0ABA00E2F7BA /* PokemonDetailsInteractor.swift in Sources */,
@@ -619,6 +642,7 @@
 				A2C9E6942DE8F8AC0055C541 /* SceneDelegate.swift in Sources */,
 				A26041CD2DE9123600139D55 /* PokemonListService.swift in Sources */,
 				A277B7FB2DEC0A8400E2F7BA /* PokemonDetailsLocalDataProvider.swift in Sources */,
+				A277B80F2DECF7AA00E2F7BA /* PKMDSColors.swift in Sources */,
 				A277B7DC2DEBB3C900E2F7BA /* PKMDSEmptyStateView.swift in Sources */,
 				A26041E02DEA4F4000139D55 /* PokemonListServiceMock.swift in Sources */,
 			);
