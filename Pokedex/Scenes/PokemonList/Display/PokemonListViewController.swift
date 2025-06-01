@@ -74,7 +74,8 @@ class PokemonListViewController: BaseViewController {
     private func setupScene(){
         let presenter = PokemonListPresenter(displayer: self)
         //let service = PokemonListServiceMock(configuration: .init(getItemsConfiguration: .failure(PokemonListServiceMock.MockError.someError))) //PokemonListService() (Change for Real Server When Implemented)
-        let service = PokemonListServiceMock() //PokemonListService() (Change for Real Server When Implemented)
+        //let service = PokemonListServiceMock()
+        let service = PokemonListService() 
         let interactor = PokemonListInteractor(presenter: presenter, service: service)
         self.interactor = interactor
     }
