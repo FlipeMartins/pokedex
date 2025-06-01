@@ -20,4 +20,8 @@ class PokemonDetailsInteractor: PokemonDetailsInteractorProtocol {
         self.service = service
     }
     
+    func startFlow(request: PokemonDetailsModels.StartFlow.Request) {
+        // Do something
+    }
+    
 }

@@ -9,4 +9,8 @@ import Foundation
 
 protocol PokemonDetailsDisplayProtocol: AnyObject {
     
+    func displayStartLoading(viewModel: PokemonDetailsModels.StartLoading.ViewModel)
+    func displayStopLoading(viewModel: PokemonDetailsModels.StopLoading.ViewModel)
+    func displayEmptyState(viewModel: PokemonDetailsModels.EmptyState.ViewModel)
+    
 }

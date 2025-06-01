@@ -8,5 +8,8 @@
 import Foundation
 
 protocol PokemonDetailsDataProviderProtocol {
+    var emptyStateTitle: String { get }
+    var emptyStateMessage: String { get }
+    var emptyStateButtonTitle: String { get }
     
 }

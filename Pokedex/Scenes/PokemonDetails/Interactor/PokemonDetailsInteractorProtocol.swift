@@ -8,5 +8,5 @@
 import Foundation
 
 protocol PokemonDetailsInteractorProtocol {
-    
+    func startFlow(request: PokemonDetailsModels.StartFlow.Request)
 }

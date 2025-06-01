@@ -1,5 +1,5 @@
 //
-//  PokemonListEmptyStateView.swift
+//  PKMDSEmptyStateView.swift
 //  Pokedex
 //
 //  Created by Felipe Martins on 31/05/25.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol PokemonListEmptyStateViewDelegate: AnyObject {
-    func buttonClicked(view: PokemonListEmptyStateView)
+protocol PKMDSEmptyStateViewDelegate: AnyObject {
+    func buttonClicked(view: PKMDSEmptyStateView)
 }
 
-class PokemonListEmptyStateView: UIView {
+class PKMDSEmptyStateView: UIView {
     
     private lazy var baseView: UIView = {
         let view = UIView()
@@ -98,7 +98,7 @@ class PokemonListEmptyStateView: UIView {
         }
     }
 
-    public weak var delegate: PokemonListEmptyStateViewDelegate?
+    public weak var delegate: PKMDSEmptyStateViewDelegate?
     
     public init(){
         super.init(frame: CGRect.zero)
@@ -122,7 +122,7 @@ class PokemonListEmptyStateView: UIView {
     
 }
 
-extension PokemonListEmptyStateView: PKMDSViewConfiguration {
+extension PKMDSEmptyStateView: PKMDSViewConfiguration {
     func buildViewHierarchy() {
         self.addSubview(baseView)
         
@@ -151,7 +151,7 @@ extension PokemonListEmptyStateView: PKMDSViewConfiguration {
             self.baseView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
         ])
         
-        // Content Stack
+        // Content Stack 
         
         NSLayoutConstraint.activate([
             

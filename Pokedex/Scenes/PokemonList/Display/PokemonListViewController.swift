@@ -52,8 +52,8 @@ class PokemonListViewController: BaseViewController {
         return collectionView
     }()
     
-    private lazy var emptyStateView: PokemonListEmptyStateView = {
-        let view = PokemonListEmptyStateView()
+    private lazy var emptyStateView: PKMDSEmptyStateView = {
+        let view = PKMDSEmptyStateView()
         view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -185,8 +185,8 @@ extension PokemonListViewController: PKMDSViewConfiguration {
 }
 
 
-extension PokemonListViewController: PokemonListEmptyStateViewDelegate {
-    func buttonClicked(view: PokemonListEmptyStateView) {
+extension PokemonListViewController: PKMDSEmptyStateViewDelegate {
+    func buttonClicked(view: PKMDSEmptyStateView) {
         self.interactor?.startFlow(request: .init(isRetry: true))
     }
 }
