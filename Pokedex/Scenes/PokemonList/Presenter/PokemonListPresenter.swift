@@ -10,9 +10,11 @@ import Foundation
 class PokemonListPresenter: PokemonListPresenterProtocol {
     
     private weak var displayer: PokemonListDisplayProtocol?
+    private var dataProvider: PokemonListDataProviderProtocol
     
-    init(displayer: PokemonListDisplayProtocol) {
+    init(displayer: PokemonListDisplayProtocol, dataProvider: PokemonListDataProviderProtocol = PokemonListLocalDataProvider()) {
         self.displayer = displayer
+        self.dataProvider = dataProvider
     }
     
     func presentStartLoading(response: PokemonListModels.StartLoading.Response) {
@@ -25,10 +27,10 @@ class PokemonListPresenter: PokemonListPresenterProtocol {
     
     func presentEmptyState(response: PokemonListModels.EmptyState.Response) {
         
-        let title = "Opa!"
-        let message = "Parece que tivemos um problema para exibir os items, tente novamente mais tarde"
+        let title = self.dataProvider.emptyStateTitle
+        let message = self.dataProvider.emptyStateMessage
         let image = PKMDSImage.asset(name: "psyduck")
-        let buttonTitle = "Tentar Novamente"
+        let buttonTitle = self.dataProvider.emptyStateButtonTitle
         
         self.displayer?.displayEmptyState(viewModel: .init(alertTitle: title, alertMessage: message, image: image, buttonTitle: buttonTitle))
     }
