@@ -133,17 +133,14 @@ extension PokemonListViewController: UICollectionViewDelegateFlowLayout {
 
 extension PokemonListViewController: PokemonListDisplayProtocol {
     func displayStartLoading(viewModel: PokemonListModels.StartLoading.ViewModel) {
-        // Do Something
         self.startLoading()
     }
     
     func displayStopLoading(viewModel: PokemonListModels.StopLoading.ViewModel) {
-        // Do Something
         self.stopLoading()
     }
     
     func displayEmptyState(viewModel: PokemonListModels.EmptyState.ViewModel) {
-        // Do Something
         self.contentStackView.removeAllArrangedSubview()
         
         self.emptyStateView.title = viewModel.alertTitle
