@@ -29,11 +29,19 @@ enum PokemonListModels {
         struct ViewModel {
             let alertTitle: String
             let alertMessage: String
+            let image: PKMDSImage?
+            let buttonTitle: String
         }
     }
     
     enum StartFlow {
-        struct Request {}
+        struct Request {
+            let isRetry: Bool
+            
+            init(isRetry: Bool = false){
+                self.isRetry = isRetry
+            }
+        }
         struct Response {}
         struct ViewModel {}
     }

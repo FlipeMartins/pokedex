@@ -37,6 +37,7 @@ class PokemonListInteractor: PokemonListInteractorProtocol {
     
     func userSelectedItem(request: PokemonListModels.UserSelectedItem.Request) {
         // Call show details passing ID
+        
     }
     
 }

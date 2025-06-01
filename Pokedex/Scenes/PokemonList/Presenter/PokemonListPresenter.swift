@@ -24,9 +24,13 @@ class PokemonListPresenter: PokemonListPresenterProtocol {
     }
     
     func presentEmptyState(response: PokemonListModels.EmptyState.Response) {
+        
         let title = "Opa!"
         let message = "Parece que tivemos um problema para exibir os items, tente novamente mais tarde"
-        self.displayer?.displayEmptyState(viewModel: .init(alertTitle: title, alertMessage: message))
+        let image = PKMDSImage.asset(name: "psyduck")
+        let buttonTitle = "Tentar Novamente"
+        
+        self.displayer?.displayEmptyState(viewModel: .init(alertTitle: title, alertMessage: message, image: image, buttonTitle: buttonTitle))
     }
     
     func presentShowItems(response: PokemonListModels.ShowItems.Response) {

@@ -26,6 +26,12 @@ class PokemonListViewController: UIViewController {
         static let minimumInterItemSpace: CGFloat = 7.0
     }
     
+    private var contentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
     private lazy var collectionViewItems: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -46,6 +52,13 @@ class PokemonListViewController: UIViewController {
         return collectionView
     }()
     
+    private lazy var emptyStateView: PokemonListEmptyStateView = {
+        let view = PokemonListEmptyStateView()
+        view.delegate = self
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     var items: [ItemRepresentation] = []
     
     private var interactor: PokemonListInteractorProtocol?
@@ -60,7 +73,8 @@ class PokemonListViewController: UIViewController {
     
     private func setupScene(){
         let presenter = PokemonListPresenter(displayer: self)
-        let service = PokemonListServiceMock() //PokemonListService() (Change for Real Server When Implemented)
+        let service = PokemonListServiceMock(configuration: .init(getItemsConfiguration: .failure(PokemonListServiceMock.MockError.someError))) //PokemonListService() (Change for Real Server When Implemented)
+        //let service = PokemonListServiceMock() //PokemonListService() (Change for Real Server When Implemented)
         let interactor = PokemonListInteractor(presenter: presenter, service: service)
         self.interactor = interactor
     }
@@ -128,10 +142,22 @@ extension PokemonListViewController: PokemonListDisplayProtocol {
     
     func displayEmptyState(viewModel: PokemonListModels.EmptyState.ViewModel) {
         // Do Something
+        self.contentStackView.removeAllArrangedSubview()
+        
+        self.emptyStateView.title = viewModel.alertTitle
+        self.emptyStateView.message = viewModel.alertMessage
+        self.emptyStateView.image = viewModel.image
+        self.emptyStateView.buttonTitle = viewModel.buttonTitle
+        
+        self.contentStackView.addArrangedSubview(self.emptyStateView)
+        
     }
     
     func displayShowItems(viewModel: PokemonListModels.ShowItems.ViewModel) {
-        // Do Something
+        
+        self.contentStackView.removeAllArrangedSubview()
+        self.contentStackView.addArrangedSubview(self.collectionViewItems)
+        
         self.items = viewModel.items.compactMap{ItemRepresentation(name: $0.name, image: $0.image)}
         self.collectionViewItems.reloadData()
     }
@@ -144,16 +170,24 @@ extension PokemonListViewController: PokemonListDisplayProtocol {
 
 extension PokemonListViewController: PKMDSViewConfiguration {
     func buildViewHierarchy() {
-        self.view.addSubview(self.collectionViewItems)
+        self.view.addSubview(contentStackView)
     }
     
     func setupConstraints() {
+        
         NSLayoutConstraint.activate([
-            self.collectionViewItems.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20),
-            self.collectionViewItems.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20),
-            self.collectionViewItems.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-            self.collectionViewItems.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
+            self.contentStackView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.contentStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            self.contentStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.contentStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
             
         ])
+    }
+}
+
+
+extension PokemonListViewController: PokemonListEmptyStateViewDelegate {
+    func buttonClicked(view: PokemonListEmptyStateView) {
+        self.interactor?.startFlow(request: .init(isRetry: true))
     }
 }
