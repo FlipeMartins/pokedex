@@ -36,7 +36,14 @@ class PokemonDetailsPresenter: PokemonDetailsPresenterProtocol {
     }
     
     func presentPokemonDetails(response: PokemonDetailsModels.PokemonDetails.Response) {
-        self.displayer?.displayPokemonDetails(viewModel: .init(name: response.name))
+        self.displayer?.displayPokemonDetails(
+            viewModel: .init(
+                name: response.name.capitalized,
+                image: response.image,
+                types: response.types.compactMap{$0.capitalized},
+                stats: response.stats.compactMap{PokemonDetailsModels.PokemonDetails.ViewModel.Stat(name: $0.name.capitalized, value: "\($0.value)".capitalized)}
+            )
+        )
     }
     
     

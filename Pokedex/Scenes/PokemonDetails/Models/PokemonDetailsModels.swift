@@ -49,10 +49,26 @@ enum PokemonDetailsModels {
     enum PokemonDetails {
         struct Request {}
         struct Response {
+            struct Stat {
+                let name: String
+                let value: Int
+            }
+            
             let name: String
+            let image: PKMDSImage
+            let types: [String]
+            let stats: [Stat]
         }
         struct ViewModel {
+            struct Stat {
+                let name: String
+                let value: String
+            }
+            
             let name: String
+            let image: PKMDSImage
+            let types: [String]
+            let stats: [Stat]
         }
     }
     

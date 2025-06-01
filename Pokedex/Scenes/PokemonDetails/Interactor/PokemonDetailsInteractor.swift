@@ -34,8 +34,20 @@ class PokemonDetailsInteractor: PokemonDetailsInteractorProtocol {
             self.presenter.presentStopLoading(response: .init())
             switch result {
             case .success(let result):
-                // TODO: Need adjusts, just to test
-                self.presenter.presentPokemonDetails(response: .init(name: result.name))
+                
+                let name = result.name
+                let image = PKMDSImage.remote(remote: .init(url: result.sprites.other.officialArtwork.frontDefault))
+                let types = result.types.compactMap{$0.type.name}
+                let stats = result.stats.compactMap{PokemonDetailsModels.PokemonDetails.Response.Stat(name: $0.stat.name, value: $0.baseStat)}
+                
+                self.presenter.presentPokemonDetails(
+                    response: .init(
+                        name: name,
+                        image: image,
+                        types: types,
+                        stats: stats
+                    )
+                )
             case .failure(_):
                 self.presenter.presentEmptyState(response: .init())
             }

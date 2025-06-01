@@ -26,6 +26,12 @@ class PokemonDetailsViewController: BaseViewController {
         return view
     }()
     
+    private lazy var pokemonDetailsView: PokemonDetailsView = {
+        let detailsView = PokemonDetailsView()
+        detailsView.translatesAutoresizingMaskIntoConstraints = false
+        return detailsView
+    }()
+    
     private var interactor: PokemonDetailsInteractorProtocol?
     public var inputData: InputData = .init(itemId: 1)
     
@@ -71,8 +77,22 @@ extension PokemonDetailsViewController: PokemonDetailsDisplayProtocol {
     }
     
     func displayPokemonDetails(viewModel: PokemonDetailsModels.PokemonDetails.ViewModel) {
-        // TODO: Just to test
-        print("NAME: \(viewModel.name)")
+        self.contentStackView.removeAllArrangedSubview()
+        
+        let name = viewModel.name
+        let image = viewModel.image
+        let types = viewModel.types
+        let stats = viewModel.stats.compactMap{
+            PokemonDetailsView.ViewRepresentation.Stat(title: $0.name, value: $0.value)
+        }.filter{
+            $0.title == "Hp" || $0.title == "Attack" || $0.title == "Defense" || $0.title == "Speed"
+        }
+        
+        let viewRepresentation = PokemonDetailsView.ViewRepresentation(image: image, name: name, types: types, stats: stats)
+        
+        self.pokemonDetailsView.configureWith(viewRepresentation: viewRepresentation)
+        
+        self.contentStackView.addArrangedSubview(self.pokemonDetailsView)
     }
 }
 
