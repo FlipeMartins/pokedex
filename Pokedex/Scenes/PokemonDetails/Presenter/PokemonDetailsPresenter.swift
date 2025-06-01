@@ -8,7 +8,6 @@
 import Foundation
 
 class PokemonDetailsPresenter: PokemonDetailsPresenterProtocol {
-   
     
     private weak var displayer: PokemonDetailsDisplayProtocol?
     private var dataProvider: PokemonDetailsDataProviderProtocol
@@ -35,5 +34,10 @@ class PokemonDetailsPresenter: PokemonDetailsPresenterProtocol {
         
         self.displayer?.displayEmptyState(viewModel: .init(alertTitle: title, alertMessage: message, image: image, buttonTitle: buttonTitle))
     }
+    
+    func presentPokemonDetails(response: PokemonDetailsModels.PokemonDetails.Response) {
+        self.displayer?.displayPokemonDetails(viewModel: .init(name: response.name))
+    }
+    
     
 }

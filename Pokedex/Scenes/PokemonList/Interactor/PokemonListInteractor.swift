@@ -29,15 +29,15 @@ class PokemonListInteractor: PokemonListInteractorProtocol {
                 let itemsToPresent = result.results.compactMap{PokemonListModels.ShowItems.Response.ItemRepresentation(name: $0.name)}
                 self.presenter.presentShowItems(response: .init(items: itemsToPresent))
                 
-            case .failure(let failure):
+            case .failure(_):
                 self.presenter.presentEmptyState(response: .init())
             }
         }
     }
     
     func userSelectedItem(request: PokemonListModels.UserSelectedItem.Request) {
-        // Call show details passing ID
-        
+        let itemId = request.index + 1
+        self.presenter.presentShowDetails(response: .init(itemId: itemId))
     }
     
 }

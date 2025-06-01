@@ -46,4 +46,14 @@ enum PokemonDetailsModels {
         struct ViewModel {}
     }
     
+    enum PokemonDetails {
+        struct Request {}
+        struct Response {
+            let name: String
+        }
+        struct ViewModel {
+            let name: String
+        }
+    }
+    
 }

@@ -9,6 +9,10 @@ import UIKit
 
 class PokemonDetailsViewController: BaseViewController {
     
+    struct InputData {
+        let itemId: Int
+    }
+    
     private var contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -23,11 +27,13 @@ class PokemonDetailsViewController: BaseViewController {
     }()
     
     private var interactor: PokemonDetailsInteractorProtocol?
+    public var inputData: InputData = .init(itemId: 1)
     
     private func setupScene(){
         let presenter = PokemonDetailsPresenter(displayer: self)
         let service = PokemonDetailsServiceMock() //PokemonDetailsService() (Change for Real Server When Implemented)
-        let interactor = PokemonDetailsInteractor(presenter: presenter, service: service)
+       // let service = PokemonDetailsServiceMock(configuration: .init(getPokemonDetailsConfiguration: .failure(PokemonDetailsServiceMock.MockError.someError)))
+        let interactor = PokemonDetailsInteractor(inputData: .init(itemId: inputData.itemId), presenter: presenter, service: service)
         self.interactor = interactor
     }
     
@@ -63,6 +69,11 @@ extension PokemonDetailsViewController: PokemonDetailsDisplayProtocol {
         
         self.contentStackView.addArrangedSubview(self.emptyStateView)
     }
+    
+    func displayPokemonDetails(viewModel: PokemonDetailsModels.PokemonDetails.ViewModel) {
+        // TODO: Just to test
+        print("NAME: \(viewModel.name)")
+    }
 }
 
 extension PokemonDetailsViewController: PKMDSViewConfiguration {
@@ -80,6 +91,10 @@ extension PokemonDetailsViewController: PKMDSViewConfiguration {
             self.contentStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
             
         ])
+    }
+    
+    func configureViews() {
+        self.view.backgroundColor = .systemBackground
     }
 }
 

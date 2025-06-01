@@ -73,8 +73,8 @@ class PokemonListViewController: BaseViewController {
     
     private func setupScene(){
         let presenter = PokemonListPresenter(displayer: self)
-        let service = PokemonListServiceMock(configuration: .init(getItemsConfiguration: .failure(PokemonListServiceMock.MockError.someError))) //PokemonListService() (Change for Real Server When Implemented)
-        //let service = PokemonListServiceMock() //PokemonListService() (Change for Real Server When Implemented)
+        //let service = PokemonListServiceMock(configuration: .init(getItemsConfiguration: .failure(PokemonListServiceMock.MockError.someError))) //PokemonListService() (Change for Real Server When Implemented)
+        let service = PokemonListServiceMock() //PokemonListService() (Change for Real Server When Implemented)
         let interactor = PokemonListInteractor(presenter: presenter, service: service)
         self.interactor = interactor
     }
@@ -162,7 +162,10 @@ extension PokemonListViewController: PokemonListDisplayProtocol {
     }
     
     func displayShowDetails(viewModel: PokemonListModels.ShowDetails.ViewModel) {
-        // Do Something
+        
+        let pokemonDetailsViewController = PokemonDetailsViewController()
+        pokemonDetailsViewController.inputData = .init(itemId: viewModel.itemId)
+        self.navigationController?.pushViewController(pokemonDetailsViewController, animated: true)
     }
     
 }
