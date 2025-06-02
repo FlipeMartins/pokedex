@@ -37,9 +37,8 @@ class PokemonDetailsViewController: BaseViewController {
     
     private func setupScene(){
         let presenter = PokemonDetailsPresenter(displayer: self)
-        let service = PokemonDetailsService()
-        //let service = PokemonDetailsServiceMock()
-       // let service = PokemonDetailsServiceMock(configuration: .init(getPokemonDetailsConfiguration: .failure(PokemonDetailsServiceMock.MockError.someError)))
+        let service: PokemonDetailsServiceProtocol = LaunchConfig.useMocks ? PokemonDetailsServiceMock() : PokemonDetailsService()
+       
         let interactor = PokemonDetailsInteractor(inputData: .init(itemId: inputData.itemId), presenter: presenter, service: service)
         self.interactor = interactor
     }

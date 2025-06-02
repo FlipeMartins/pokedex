@@ -48,6 +48,7 @@ class PokemonDetailsView: UIView {
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.accessibilityIdentifier = "name-label"
         label.font = PKMDSFonts.title1
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -108,7 +109,7 @@ class PokemonDetailsView: UIView {
         
         self.typesContentStack.addArrangedSubview(spacerLeft)
         
-        viewRepresentation.types.forEach {
+        viewRepresentation.types.enumerated().forEach {
             
             let label = UILabel()
             label.setContentHuggingPriority(.required, for: .horizontal)
@@ -116,7 +117,8 @@ class PokemonDetailsView: UIView {
             label.textColor = .white
             label.font = PKMDSFonts.title3
             label.translatesAutoresizingMaskIntoConstraints = false
-            label.text = $0
+            label.accessibilityIdentifier = "type-label-\($0.offset+1)"
+            label.text = $0.element
             
             self.typesContentStack.addArrangedSubview(label)
         }
@@ -127,7 +129,7 @@ class PokemonDetailsView: UIView {
             spacerLeft.widthAnchor.constraint(equalTo: spacerRight.widthAnchor)
         ])
 
-        viewRepresentation.stats.forEach {
+        viewRepresentation.stats.enumerated().forEach {
             
             let stackview = UIStackView()
             stackview.translatesAutoresizingMaskIntoConstraints = false
@@ -138,7 +140,7 @@ class PokemonDetailsView: UIView {
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
             titleLabel.font = PKMDSFonts.caption1
             titleLabel.textColor = PKMDSColors.neutralSecondaryText
-            titleLabel.text = $0.title
+            titleLabel.text = $0.element.title
             titleLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
             
             titleLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
@@ -147,7 +149,8 @@ class PokemonDetailsView: UIView {
             valueLabel.font = PKMDSFonts.caption1
             valueLabel.textColor = PKMDSColors.neutralSecondaryText
             valueLabel.translatesAutoresizingMaskIntoConstraints = false
-            valueLabel.text = $0.value
+            valueLabel.text = $0.element.value
+            valueLabel.accessibilityIdentifier = "stat-label-\($0.element.title)"
             
             stackview.addArrangedSubview(titleLabel)
             stackview.addArrangedSubview(valueLabel)
