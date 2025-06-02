@@ -21,21 +21,45 @@ final class PokedexUITests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    
+    func testNavigatesToPokemonDetailAndChecksLabels(){
+        
         let app = XCUIApplication()
+        app.launchArguments = ["-UITestMode"]
         app.launch()
-
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
-        }
+        
+        let firstCell = app.collectionViews.cells.element(boundBy: 0)
+        XCTAssertTrue(firstCell.waitForExistence(timeout: 5))
+        firstCell.tap()
+        
+        let nameLabel = app.staticTexts["name-label"]
+        XCTAssertTrue(nameLabel.waitForExistence(timeout: 5))
+        XCTAssertEqual(nameLabel.label, "Bulbasaur")
+        
+        let firstTypeLabel = app.staticTexts["type-label-1"]
+        XCTAssertTrue(firstTypeLabel.waitForExistence(timeout: 5))
+        XCTAssertEqual(firstTypeLabel.label, "Grass")
+        
+        let secondTypeLabel = app.staticTexts["type-label-2"]
+        XCTAssertTrue(secondTypeLabel.waitForExistence(timeout: 5))
+        XCTAssertEqual(secondTypeLabel.label, "Poison")
+        
+        let statHpLabel = app.staticTexts["stat-label-Hp"]
+        XCTAssertTrue(statHpLabel.waitForExistence(timeout: 5))
+        XCTAssertEqual(statHpLabel.label, "45")
+        
+        let statAttackLabel = app.staticTexts["stat-label-Attack"]
+        XCTAssertTrue(statAttackLabel.waitForExistence(timeout: 5))
+        XCTAssertEqual(statAttackLabel.label, "49")
+        
+        let statDefenseLabel = app.staticTexts["stat-label-Defense"]
+        XCTAssertTrue(statDefenseLabel.waitForExistence(timeout: 5))
+        XCTAssertEqual(statDefenseLabel.label, "49")
+        
+        let statSpeedLabel = app.staticTexts["stat-label-Speed"]
+        XCTAssertTrue(statSpeedLabel.waitForExistence(timeout: 5))
+        XCTAssertEqual(statSpeedLabel.label, "45")
+        
+        
     }
 }
