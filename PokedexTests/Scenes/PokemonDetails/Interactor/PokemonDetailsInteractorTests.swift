@@ -13,17 +13,19 @@ final class PokemonDetailsInteractorTests: XCTestCase {
     var sut: PokemonDetailsInteractor?
     var serviceMock: PokemonDetailsTestServiceMock?
     var presenterMock: PokemonDetailsTestPresenterMock?
+    var analytcsManagerMock: AnalyticsManagerMock?
     
     override func setUp() {
         serviceMock = PokemonDetailsTestServiceMock()
         presenterMock = PokemonDetailsTestPresenterMock()
+        analytcsManagerMock = AnalyticsManagerMock()
         
-        guard presenterMock != nil, serviceMock != nil else {
+        guard presenterMock != nil, serviceMock != nil, analytcsManagerMock != nil else {
             XCTFail()
             return
         }
         
-        sut = PokemonDetailsInteractor(inputData: .init(itemId: 1), presenter: presenterMock!, service: serviceMock!)
+        sut = PokemonDetailsInteractor(inputData: .init(itemId: 1), presenter: presenterMock!, service: serviceMock!, analyticsManager: analytcsManagerMock!)
     }
     
     override func tearDown() {
@@ -109,6 +111,51 @@ final class PokemonDetailsInteractorTests: XCTestCase {
         
         let result = presenterMock?.presentEmptyStateCalled ?? false
         XCTAssertTrue(result)
+        
+    }
+    
+    
+    func testInteractor_WhenStartFlowCalled_ShouldCallAnalytcsManager() {
+        
+        // Arrange
+        
+        // Act
+        sut?.startFlow(request: .init())
+        
+        // Assert
+      
+        let result = analytcsManagerMock?.trackCalled ?? false
+        XCTAssertTrue(result)
+        
+    }
+    
+    func testInteractor_WhenStartFlowCalledWithRetry_ShouldCallAnalytcsManagerWithCorrectConfiguration() {
+        
+        // Arrange
+        
+        // Act
+        sut?.startFlow(request: .init(isRetry: true))
+        
+        // Assert
+      
+        let eventType = analytcsManagerMock?.event?.type ?? ""
+        
+        XCTAssertEqual(eventType, "user-interaction")
+        
+    }
+    
+    func testInteractor_WhenStartFlowCalledWithoutRetry_ShouldCallAnalytcsManagerWithCorrectConfiguration() {
+        
+        // Arrange
+        
+        // Act
+        sut?.startFlow(request: .init())
+        
+        // Assert
+      
+        let eventType = analytcsManagerMock?.event?.type ?? ""
+        
+        XCTAssertEqual(eventType, "screen-view")
         
     }
     

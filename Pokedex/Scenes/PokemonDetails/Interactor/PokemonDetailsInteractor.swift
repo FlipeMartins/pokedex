@@ -15,20 +15,31 @@ class PokemonDetailsInteractor: PokemonDetailsInteractorProtocol {
     
     private let presenter: PokemonDetailsPresenterProtocol
     private let service: PokemonDetailsServiceProtocol
+    private var analyticsManager: AnalyticsManagerProtocol
     
     private var inputData: InputData
 
     init(
         inputData: InputData,
         presenter: PokemonDetailsPresenterProtocol,
-        service: PokemonDetailsServiceProtocol
+        service: PokemonDetailsServiceProtocol,
+        analyticsManager: AnalyticsManagerProtocol = AnalyticsManager.shared
     ) {
         self.inputData = inputData
         self.presenter = presenter
         self.service = service
+        self.analyticsManager = analyticsManager
     }
     
     func startFlow(request: PokemonDetailsModels.StartFlow.Request) {
+     
+        analyticsManager.track(
+            event: AnalyticsEvent(
+                type: !request.isRetry ? AnalyticsEvent.screenView : AnalyticsEvent.userInteraction,
+                parameters: ["Screen":"PokeonDetailsViewController", "isRetry": request.isRetry, "tag":"PokemonDetails_startFlow"]
+            )
+        )
+        
         self.presenter.presentStartLoading(response: .init())
         self.service.getPokemonDetails(request: .init(itemId: inputData.itemId)) { result in
             self.presenter.presentStopLoading(response: .init())
