@@ -95,3 +95,7 @@ As camadas de Analytcs e DesignSystem (NetworkManager caso tivesse sido implemen
 
 Até mesmo cada scene poderia se tornar um Feature Module em caso de times específicos e controle de governança avançado de code base, mas aqui já é um passo bem mais a frente.
 
+### Monitoramento
+
+Poderia ter sido adicionado dependências de monitoramento como Crashlytcs para monitoramento de crashs e evolução de base. Por uma questão de tempo e exposição de chaves em git público não foi adicionado.
+
